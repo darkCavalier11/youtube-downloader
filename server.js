@@ -18,11 +18,12 @@ app.get('/', (req, res)=>{
 })
 
 app.get('/download', async(req, res)=>{
-    const url = req.query.url
-    const quality = req.query.quality
+    const url = req.query.url || 'https://www.youtube.com/watch?v=NeXbmEnpSz0'
+    const quality = req.query.quality || 360
     try{
         const data = await ytdl.getBasicInfo(url)
-        res.header("Content-Disposition", `attachment;\  filename=${data.videoDetails.title}.mp4`)
+        res.header("Content-Disposition", `attachment; filename=${data.videoDetails.title}.mp4`)
+        res.set('Content-Type', 'video/mp4')
         ytdl(url, {quality: quality_itag[quality]}).pipe(res)
     }
     catch (err){

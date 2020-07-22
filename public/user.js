@@ -1,38 +1,13 @@
-const button = document.querySelector('.label')
-const query = document.querySelector('.searchBox')
-const loc = document.querySelector('.loc')
-const temp = document.querySelector('.temp-data')
-const pressure = document.querySelector('.pressure-data')
-const wind = document.querySelector('.wind-data')
-const rain = document.querySelector('.rain-data')
-const humidity = document.querySelector('.humidity-data')
-
-console.log('js loaded')
-const response = function () {
-    fetch(`/weather?place=${query.value}`).then((response) => {
-        response.json().then((data) => {
-                console.log(data)
-                document.querySelector('.result').style.display = 'inline-block'
-                document.querySelector('footer').style.display = 'none'
-                query.style.display = 'none'
-                button.style.display = 'none'
-                data = data.data
-                loc.textContent = 'weather @' + query.value
-                temp.textContent = data.current.temperature + '\xB0 Celsius'
-                pressure.textContent = data.current.pressure + 'bar'
-                wind.textContent = data.current.wind_speed +'km/hr'
-                rain.textContent = data.current.precip + 'mm'
-                humidity.textContent = data.current.humidity + '%'
-            }
-        )
-        })
-    }
-document.addEventListener('keydown', (e)=>{
-    if (e.keyCode == 13){
-        response()
-    }
-})
+const button = document.querySelector('.submitBtn')
+const link = document.querySelector('.searchBox')
+const quality = document.querySelector('.quality')
+const response = function(){
+    fetch(`/download?url=${encodeURIComponent(link.value)}&quality=${encodeURIComponent(quality.value)}`)
+    .then((response)=>response.json()
+    .then(data => {
+        console.log(data)
+    })
+)
+    
+}
 button.addEventListener('click', response)
-
-   
-
