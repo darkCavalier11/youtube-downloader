@@ -4,12 +4,18 @@ const ytdl = require('ytdl-core')
 const app = express()
 const PORT = process.env.PORT || 3000
 
+app.use(express.static('./public'))
+
 const quality_itag = {
     360: 134,
     480: 135,
     720: 136,
     1080: 137
 }
+
+app.get('/', (req, res)=>{
+    res.render('index.html')
+})
 
 app.get('/download', async(req, res)=>{
     const url = req.query.url
