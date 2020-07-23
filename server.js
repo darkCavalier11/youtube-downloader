@@ -2,7 +2,7 @@ const express = require('express')
 const cors = require('cors')
 const ytdl = require('ytdl-core')
 const app = express()
-const PORT = process.env.PORT || 3000
+const PORT = process.env.PORT || 5989
 
 app.use(express.static('./public'))
 
@@ -18,8 +18,9 @@ app.get('/', (req, res)=>{
 })
 
 app.get('/download', async(req, res)=>{
-    const url = req.query.url || 'https://www.youtube.com/watch?v=NeXbmEnpSz0'
-    const quality = req.query.quality || 360
+    const url = req.query.url 
+    const quality = req.query.quality 
+    console.log(url, quality)
     try{
         const data = await ytdl.getBasicInfo(url)
         res.header("Content-Disposition", `attachment; filename=${data.videoDetails.title}.mp4`)
