@@ -23,8 +23,8 @@ app.get('/download', async(req, res)=>{
     console.log(url, quality)
     try{
         const data = await ytdl.getBasicInfo(url)
-        res.header("Content-Disposition", `attachment; filename=${data.videoDetails.title}.mp4`)
-        res.set('Content-Type', 'video/mp4')
+        res.header("Content-Disposition", `attachment;\ filename=${encodeURIComponent(data.videoDetails.title)}.mp4`)
+        res.set("Content-Type", "video/mp4")        
         ytdl(url, {quality: quality_itag[quality]}).pipe(res)
     }
     catch (err){
